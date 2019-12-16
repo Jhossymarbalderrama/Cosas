@@ -430,3 +430,223 @@ int guardaEmpleadosCSV(eEmpleado** lista,int tam, char* path )
     return todoOk;
 }
 
+
+/**
+//----------------------
+int ll_len(LinkedList* this)
+{
+    int returnAux = -1;
+
+    if(this != NULL)
+    {
+        returnAux = this->size;
+    }
+    return returnAux;
+}
+
+
+//----------------------
+static Node* getNode(LinkedList* this, int nodeIndex)
+{
+    Node* actual = NULL;
+    int cont = 0;
+
+    if(this != NULL)
+    {
+
+        if(nodeIndex >= 0 && nodeIndex < ll_len(this))
+        {
+
+            actual = this->pFirstNode;
+
+            while(actual->pNextNode != NULL && cont != nodeIndex)
+            {
+
+                actual = actual->pNextNode;
+                cont++;
+
+            }
+        }
+    }
+
+    return actual;
+}
+
+//----------------------
+static int addNode(LinkedList* this, int nodeIndex,void* pElement)
+{
+    int returnAux = -1;
+    Node* nuevoNodo = NULL;
+    Node* auxiliar = NULL;
+
+    if(this != NULL)
+    {
+
+        if(nodeIndex >= 0 && nodeIndex <= ll_len(this))
+        {
+            nuevoNodo = (Node*) malloc( sizeof(Node));
+            if(nuevoNodo != NULL)
+            {
+                nuevoNodo->pElement = pElement;
+                nuevoNodo->pNextNode = NULL;
+                if(nodeIndex == 0)
+                {
+                    nuevoNodo->pNextNode = this->pFirstNode;
+                    this->pFirstNode = nuevoNodo;
+                    this->size++;
+                    returnAux = 0;
+                }
+                else
+                {
+
+                    auxiliar  =  getNode(this,nodeIndex-1);
+                    if(auxiliar != NULL)
+                    {
+                        nuevoNodo->pNextNode = auxiliar->pNextNode;
+                        auxiliar->pNextNode = nuevoNodo;
+                        this->size++;
+                        returnAux = 0;
+                    }
+                }
+            }
+
+        }
+
+    }
+    return returnAux;
+}
+//----------------------
+int ll_add(LinkedList* this, void* pElement)
+{
+    int returnAux = -1;
+
+    if(this != NULL)
+    {
+
+        if( addNode(this,ll_len(this),pElement) == 0)
+        {
+            returnAux = 0;
+        }
+    }
+    return returnAux;
+}
+
+//--------
+Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr)
+{
+    Employee* nuevo = employee_new();
+    int id;
+    int horasTrabajadas;
+    int sueldo;
+
+    id = atoi(idStr);
+    horasTrabajadas = atoi(horasTrabajadasStr);
+    sueldo = atoi(sueldoStr);
+
+    if( nuevo != NULL)
+    {
+        if(employee_setId(nuevo, id) &&
+                employee_setNombre(nuevo, nombreStr)&&
+                employee_setHorasTrabajadas(nuevo,horasTrabajadas)&&
+                employee_setSueldo(nuevo, sueldo))
+        {
+            // printf("Empleado creado correctamente\n");
+        }
+        else
+        {
+            nuevo = NULL;
+        }
+    }
+
+    return nuevo;
+}
+
+//------------------
+void* ll_get(LinkedList* this, int index)
+{
+    void* returnAux = NULL;
+    Node* aux = NULL;
+
+    if(this!= NULL && index >= 0 && index < ll_len(this))
+    {
+
+        aux = getNode(this,index);
+
+        returnAux = aux->pElement;
+
+    }
+
+    return returnAux;
+}
+
+//----------------------
+int controller_addEmployee(LinkedList* pArrayListEmployee)
+{
+    int todoOk = 0;
+    char buffer[4][20];
+    Employee* filtro = NULL;
+    int flagFor = 0;
+
+    if(pArrayListEmployee != NULL)
+    {
+
+        printf("--------------  Alta de Empleados  --------------\n\n");
+        printf("Ingrese ID:");
+        fflush(stdin);
+        gets(buffer[0]);
+
+        for(int i = 0 ; i < ll_len(pArrayListEmployee) ; i++)
+        {
+            filtro = (Employee*) ll_get(pArrayListEmployee,i);
+            if(filtro->id == atoi(buffer[0]))
+            {
+                printf("La ID ingresada ya se encuentra en uso\n");
+                flagFor = 1;
+                break;
+            }
+        }
+        if(flagFor == 1 )
+        {
+            while(filtro->id == atoi(buffer[0]))
+            {
+                printf("Reingrese un ID valido:");
+                fflush(stdin);
+                gets(buffer[0]);
+            }
+        }
+
+        printf("Ingrese nombre:");
+        fflush(stdin);
+        gets(buffer[1]);
+
+        printf("Ingrese horas trabajadas:");
+        fflush(stdin);
+        gets(buffer[2]);
+        while(atoi(buffer[2])< 0)
+        {
+            printf("ERROR. las horas no pueden ser menores a 0.\nReingrese:");
+            fflush(stdin);
+            gets(buffer[2]);
+        }
+        printf("Ingrese Sueldo:");
+        fflush(stdin);
+        gets(buffer[3]);
+        while(atoi(buffer[3])< 0)
+        {
+            printf("ERROR. el sueldo no puede ser menor a 0.\nReingrese:");
+            fflush(stdin);
+            gets(buffer[3]);
+        }
+
+        ll_add(pArrayListEmployee,employee_newParametros(buffer[0],buffer[1],buffer[2],buffer[3])); //Todo ok. Agreago al Nuevo Empleado
+
+        todoOk = 1;
+
+    }
+
+    return todoOk;
+}
+
+*/
+
+
